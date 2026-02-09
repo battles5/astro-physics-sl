@@ -3,6 +3,7 @@
 .Rdata
 .RData
 .Ruserdata
+.Renviron
 *.Rproj.user
 
 # renv library (tracked via renv.lock, not the actual packages)
