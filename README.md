@@ -3,7 +3,9 @@
 **Final course project — Statistical Learning (MD2SL)**
 **University of Florence — A.Y. 2024-2025**
 
-A systematic comparative analysis of supervised learning methods applied to two astrophysics datasets: predicting the critical temperature of superconductors (regression) and classifying pulsar candidates (binary classification).
+A systematic comparative analysis of supervised learning methods applied to two real-world datasets: one from **physics** (predicting the critical temperature of superconductors — regression) and one from **astrophysics** (classifying pulsar candidates — binary classification).
+
+> **Why the name?** *astro*-*physic*-*s*-*l*: "astro" for astrophysics, "physics" for physics, and "sl" — overlapping the ending of "physics" — stands for **S**tatistical **L**earning.
 
 ---
 
