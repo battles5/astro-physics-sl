@@ -1,115 +1,115 @@
 # astro-physics-sl
 
-**Progetto di fine corso — Statistical Learning (MD2SL)**
-**Università degli Studi di Firenze — A.A. 2024-2025**
+**Final course project — Statistical Learning (MD2SL)**
+**University of Florence — A.Y. 2024-2025**
 
-Analisi comparativa sistematica di metodi di apprendimento supervisionato applicati a due dataset di astrofisica: predizione della temperatura critica di superconduttori (regressione) e classificazione di candidati pulsar (classificazione binaria).
-
----
-
-## Cosa si fa
-
-Si confrontano **13 metodi di regressione** e **5 metodi di classificazione** su dati reali, coprendo l'intero spettro dei metodi visti nel corso: dai modelli lineari classici fino agli ensemble bayesiani.
-
-### Regressione — Superconduttività ($T_c$)
-
-| Gruppo | Metodi |
-|--------|--------|
-| Baseline | OLS, Regressione polinomiale |
-| Regolarizzazione | Ridge, Lasso, Elastic Net, Adaptive Lasso, Group Lasso |
-| Selezione | Best Subset (ABESS) |
-| Alberi ed ensemble | CART, Bagging, Random Forest, XGBoost, BART |
-
-### Classificazione — Pulsar (HTRU2)
-
-CART, Bagging, Random Forest, XGBoost, BART — ciascuno testato con e senza **SMOTE** per gestire lo sbilanciamento delle classi (91% rumore / 9% pulsar).
-
-### Analisi aggiuntive
-
-- **Variable Importance** confrontata tra metodi (Lasso, RF, XGBoost, BART)
-- **Inferenza post-selezione**: Knockoff Filter e Stability Selection dopo Lasso
-- **Test di DeLong** per confronto statistico tra curve ROC
-- **Impatto di SMOTE** sulle metriche di classificazione
-- Visualizzazione dei coefficient path (Ridge, Lasso, Elastic Net)
-- Discussione del trade-off bias-varianza sui risultati ottenuti
+A systematic comparative analysis of supervised learning methods applied to two astrophysics datasets: predicting the critical temperature of superconductors (regression) and classifying pulsar candidates (binary classification).
 
 ---
 
-## Dataset
+## Overview
 
-### Superconduttività (regressione)
+This project benchmarks **13 regression methods** and **5 classification methods** on real-world data, covering the full spectrum from classical linear models to Bayesian ensemble methods.
 
-- **Fonte:** [UCI ML Repository](https://archive.ics.uci.edu/dataset/464/superconductivty+data)
-- **n = 21.263** materiali superconduttori, **p = 81** feature
-- **Target:** temperatura critica $T_c$ (Kelvin)
-- Le 81 feature sono statistiche aggregate (media, std, range, entropia, …) di proprietà atomiche degli elementi che compongono ciascun materiale
+### Regression — Superconductivity ($T_c$)
 
-### HTRU2 Pulsar (classificazione)
+| Group | Methods |
+|-------|---------|
+| Baselines | OLS, Polynomial Regression |
+| Regularization | Ridge, Lasso, Elastic Net, Adaptive Lasso, Group Lasso |
+| Subset Selection | Best Subset (ABESS) |
+| Tree-based | CART, Bagging, Random Forest, XGBoost, BART |
 
-- **Fonte:** [UCI ML Repository](https://archive.ics.uci.edu/dataset/372/htru2)
-- **n = 17.898** candidati, **p = 8** feature
-- **Target:** pulsar (1) vs. rumore (0)
-- Le 8 feature sono media, std, curtosi e asimmetria del profilo integrato e della curva DM-SNR
+### Classification — Pulsar (HTRU2)
+
+CART, Bagging, Random Forest, XGBoost, BART — each tested with and without **SMOTE** to handle class imbalance (91% noise / 9% pulsar).
+
+### Additional Analyses
+
+- **Variable Importance** comparison across methods (Lasso, RF, XGBoost, BART)
+- **Post-selection inference**: Knockoff Filter and Stability Selection after Lasso
+- **DeLong test** for statistical comparison of ROC curves
+- **SMOTE impact** analysis on classification metrics
+- Coefficient path visualization (Ridge, Lasso, Elastic Net)
+- Bias-variance tradeoff discussion on the observed results
 
 ---
 
-## Struttura del progetto
+## Datasets
+
+### Superconductivity (regression)
+
+- **Source:** [UCI ML Repository](https://archive.ics.uci.edu/dataset/464/superconductivty+data)
+- **n = 21,263** superconducting materials, **p = 81** features
+- **Target:** critical temperature $T_c$ (Kelvin)
+- The 81 features are aggregate statistics (mean, std, range, entropy, …) of elemental atomic properties
+
+### HTRU2 Pulsar (classification)
+
+- **Source:** [UCI ML Repository](https://archive.ics.uci.edu/dataset/372/htru2)
+- **n = 17,898** candidates, **p = 8** features
+- **Target:** pulsar (1) vs. noise (0)
+- The 8 features are mean, std, kurtosis and skewness of the integrated profile and DM-SNR curve
+
+---
+
+## Project Structure
 
 ```
 astro-physics-sl/
 ├── data/
-│   ├── raw/               # CSV originali (scaricati da UCI)
-│   └── processed/         # Dati preprocessati (.rds)
+│   ├── raw/               # Original CSVs (downloaded from UCI)
+│   └── processed/         # Preprocessed data (.rds)
 ├── R/
-│   ├── 00_setup.R         # Librerie, seed, configurazione globale
-│   ├── 01_data_loading.R  # Download e caricamento dati
-│   ├── 02_eda.R           # Analisi esplorativa
-│   ├── 03_preprocessing.R # Ricette tidymodels
-│   ├── 04_cv_setup.R      # Split train/test e fold CV condivisi
+│   ├── 00_setup.R         # Libraries, seed, global config
+│   ├── 01_data_loading.R  # Download and load datasets
+│   ├── 02_eda.R           # Exploratory data analysis
+│   ├── 03_preprocessing.R # tidymodels recipes
+│   ├── 04_cv_setup.R      # Shared train/test split and CV folds
 │   ├── regression/
-│   │   ├── 05a_baseline.R       # OLS e polinomiale
+│   │   ├── 05a_baseline.R       # OLS and polynomial
 │   │   ├── 05b_regularization.R # Ridge, Lasso, EN, Adaptive, Group
 │   │   ├── 05c_subset.R         # ABESS
 │   │   ├── 05d_trees.R          # CART, Bagging, RF, XGBoost, BART
-│   │   ├── 06_comparison.R      # Confronto finale e grafici
-│   │   └── 07_post_selection.R  # Knockoff e Stability Selection
+│   │   ├── 06_comparison.R      # Final comparison and plots
+│   │   └── 07_post_selection.R  # Knockoff and Stability Selection
 │   ├── classification/
-│   │   └── 05_pipeline.R        # Tutti i 5 metodi ± SMOTE
+│   │   └── 05_pipeline.R        # All 5 methods ± SMOTE
 │   └── utils/
-│       ├── helpers.R             # Funzioni ausiliarie
-│       └── plotting.R            # Funzioni per grafici
+│       ├── helpers.R             # Helper functions
+│       └── plotting.R            # Plotting functions
 ├── output/
-│   ├── figures/           # Grafici (PNG e PDF)
-│   ├── models/            # Modelli salvati (.rds)
-│   └── tables/            # Tabelle risultati (.csv, .rds)
-└── report/                # Report finale (opzionale)
+│   ├── figures/           # Plots (PNG and PDF)
+│   ├── models/            # Saved models (.rds)
+│   └── tables/            # Results tables (.csv, .rds)
+└── report/                # Final report (optional)
 ```
 
 ---
 
-## Come far partire il codice
+## Getting Started
 
-### Prerequisiti
+### Prerequisites
 
-- **R ≥ 4.3** (testato con R 4.5.2)
-- Connessione internet per il primo download dei dati
+- **R ≥ 4.3** (tested with R 4.5.2)
+- Internet connection for first-time data download
 
-### Installazione
+### Installation
 
-1. **Clona il repository:**
+1. **Clone the repository:**
 
 ```bash
 git clone https://github.com/battles5/astro-physics-sl.git
 cd astro-physics-sl
 ```
 
-2. **Installa le dipendenze.** Apri R nella cartella del progetto e esegui:
+2. **Install dependencies.** Open R in the project folder and run:
 
 ```r
-# Se hai renv (consigliato):
+# If you have renv (recommended):
 renv::restore()
 
-# Altrimenti installa manualmente:
+# Otherwise install manually:
 install.packages(c(
   "tidyverse", "glmnet", "rpart", "rpart.plot",
   "ranger", "xgboost", "BART", "abess", "leaps",
@@ -120,19 +120,19 @@ install.packages(c(
 ))
 ```
 
-### Esecuzione
+### Running
 
-Gli script vanno eseguiti **nell'ordine numerico**. Ogni script salva i risultati in `output/` e gli script successivi li leggono da lì.
+Scripts must be executed **in numerical order**. Each script saves results to `output/` and subsequent scripts read from there.
 
 ```r
-# 1. Setup e caricamento dati
+# 1. Setup and data loading
 source("R/00_setup.R")
-source("R/01_data_loading.R")    # Scarica i CSV da UCI se non presenti
-source("R/02_eda.R")             # EDA + grafici esplorativi
-source("R/03_preprocessing.R")   # Ricette di preprocessing
-source("R/04_cv_setup.R")        # Split 75/25 + 10-fold CV x5
+source("R/01_data_loading.R")    # Downloads CSVs from UCI if not present
+source("R/02_eda.R")             # EDA + exploratory plots
+source("R/03_preprocessing.R")   # Preprocessing recipes
+source("R/04_cv_setup.R")        # 75/25 split + 10-fold CV x5
 
-# 2. Regressione (in ordine)
+# 2. Regression (in order)
 source("R/regression/05a_baseline.R")
 source("R/regression/05b_regularization.R")
 source("R/regression/05c_subset.R")
@@ -140,28 +140,28 @@ source("R/regression/05d_trees.R")
 source("R/regression/06_comparison.R")
 source("R/regression/07_post_selection.R")
 
-# 3. Classificazione
+# 3. Classification
 source("R/classification/05_pipeline.R")
 ```
 
-### Dati
+### Data
 
-I dati grezzi (CSV) **non sono inclusi nel repository** per ragioni di dimensione.
-Lo script `01_data_loading.R` li scarica automaticamente da UCI al primo avvio.
-I file processati (`.rds`) vengono generati automaticamente dagli script.
+Raw CSV files are **not included in the repository** due to size.
+The script `01_data_loading.R` downloads them automatically from UCI on first run.
+Processed files (`.rds`) are generated automatically by the scripts.
 
-### Risultati
+### Output
 
-Tutti i grafici e le tabelle vengono salvati in `output/figures/` e `output/tables/`.
-I modelli addestrati vengono salvati in `output/models/`.
+All plots and tables are saved to `output/figures/` and `output/tables/`.
+Trained models are saved to `output/models/`.
 
 ---
 
-## Risultati principali
+## Main Results
 
-### Regressione
+### Regression
 
-| Metodo | RMSE | R² |
+| Method | RMSE | R² |
 |--------|------|----|
 | **Random Forest** | **9.33** | **0.925** |
 | XGBoost | 9.37 | 0.924 |
@@ -172,9 +172,9 @@ I modelli addestrati vengono salvati in `output/models/`.
 | Lasso | 17.72 | 0.729 |
 | Ridge | 18.87 | 0.691 |
 
-### Classificazione
+### Classification
 
-| Metodo | AUC | Balanced Acc. |
+| Method | AUC | Balanced Acc. |
 |--------|-----|---------------|
 | **XGBoost** | **0.976** | 0.944 |
 | BART | 0.975 | 0.935 |
@@ -184,7 +184,7 @@ I modelli addestrati vengono salvati in `output/models/`.
 
 ---
 
-## Riferimenti
+## References
 
 - James, G., Witten, D., Hastie, T., Tibshirani, R. (2021). *An Introduction to Statistical Learning with Applications in R* (2nd ed.). Springer.
 - Hamidieh, K. (2018). A data-driven statistical model for predicting the critical temperature of a superconductor. *Computational Materials Science*, 154, 346–354.
