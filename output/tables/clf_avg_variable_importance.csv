@@ -1,0 +1,9 @@
+variable,label,avg_importance
+ip_kurtosis,IP Kurtosis,100
+ip_skewness,IP Skewness,42.34583414123438
+ip_mean,IP Mean,32.75087340149857
+dm_sd,DM-SNR Std Dev,27.097234634778854
+dm_mean,DM-SNR Mean,21.56364145005935
+dm_kurtosis,DM-SNR Kurtosis,20.851061114972858
+dm_skewness,DM-SNR Skewness,19.993037794393402
+ip_sd,IP Std Dev,16.707475706153353

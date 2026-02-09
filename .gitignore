@@ -1,0 +1,39 @@
+# R project files
+.Rhistory
+.Rdata
+.RData
+.Ruserdata
+*.Rproj.user
+
+# renv library (tracked via renv.lock, not the actual packages)
+renv/library/
+renv/staging/
+renv/sandbox/
+renv/python/
+renv/local/
+
+# Data files (too large for git — document download in 01_data_loading.R)
+data/raw/*.csv
+data/raw/*.zip
+data/processed/*.rds
+data/processed/*.csv
+
+# Model outputs (reproducible from code)
+output/models/**/*.rds
+output/models/**/*.rda
+
+# Tables (reproducible from code)
+output/tables/*.rds
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Presentation (LaTeX, local only — not on GitHub)
+presentation/
+
+# IDE
+.vscode/
+*.code-workspace
+
+Rplots.pdf
