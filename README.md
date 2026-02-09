@@ -2,7 +2,6 @@
 
 **Progetto di fine corso — Statistical Learning (MD2SL)**
 **Università degli Studi di Firenze — A.A. 2024-2025**
-**Prof.ssa Anna Gottard**
 
 Analisi comparativa sistematica di metodi di apprendimento supervisionato applicati a due dataset di astrofisica: predizione della temperatura critica di superconduttori (regressione) e classificazione di candidati pulsar (classificazione binaria).
 
@@ -191,8 +190,4 @@ I modelli addestrati vengono salvati in `output/models/`.
 - Hamidieh, K. (2018). A data-driven statistical model for predicting the critical temperature of a superconductor. *Computational Materials Science*, 154, 346–354.
 - Lyon, R.J. et al. (2016). Fifty years of pulsar candidate selection. *MNRAS*, 459(1), 1104–1123.
 
----
 
-## Autore
-
-**Orso Peruzzi** — Università degli Studi di Firenze, Master MD2SL
